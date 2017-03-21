@@ -41,8 +41,9 @@
         dest: "{{ zk_install_dir }}"
 
     - name: create zookeeper config file
-      file:
-        path: "{{ zk_instsall_dir }}/conf/zoo.cfg"
+      debug: "implement the placement of the config file"
+      #file:
+        #path: "{{ zk_instsall_dir }}/conf/zoo.cfg"
         #tickTime=2000
         #dataDir=/var/lib/zookeeper
         #clientPort=2181

@@ -7,3 +7,10 @@ def setup_logging():
     logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler(sys.stdout))
     return logger
+
+
+def install_tool():
+  pass
+
+def get_info_from_resource():
+  pass
