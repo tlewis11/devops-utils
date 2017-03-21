@@ -3,10 +3,9 @@ import boto3
 import sys
 import json
 import admin
+
 logger = admin.setup_logging()
 
-print logger
-sys.exit()
 class Service(object):
        
     def __init__(self, config):
