@@ -1,0 +1,50 @@
+#---
+
+- hosts: all
+
+  vars:
+
+    zk_version: "zookeeper-3.4.9"
+    zk_tarfile: "{{ zk_version }}.tar.gz"   
+    zk_install_dir: "."
+    zk_install_path: "{{zk_install_dir}}/{{zk_version}}"
+
+    zk_url: "http://www-eu.apache.org/dist/zookeeper/current/{{ zk_tarfile}}"
+    
+    zk_localpath: "/tmp/{{ zk_tarfile }}"
+
+
+  tasks:
+
+    - name: test that it ran
+      command: touch ~/aFileFromAnsible
+
+    - name: debug url
+      debug: "{{ zk_url }}"
+
+    - name: download zookeeper tar
+      get_url:         
+        url: "{{ zk_url }}"
+        dest: "{{ zk_localpath }}"
+
+
+    - name: create zookeeper directory
+      file:
+        path: "{{ zk_install_dir }}"
+        state: directory
+        mode: 0755
+
+    - name: extract zookeeper tar
+      unarchive:
+        src: "{{ zk_localpath }}"
+
+        dest: "{{ zk_install_dir }}"
+
+    - name: create zookeeper config file
+      file:
+        path: "{{ zk_instsall_dir }}/conf/zoo.cfg"
+        #tickTime=2000
+        #dataDir=/var/lib/zookeeper
+        #clientPort=2181
+        
+      
