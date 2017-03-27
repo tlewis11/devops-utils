@@ -1,33 +1,58 @@
 #---
 
+
 - hosts: all
 
   vars:
     ansible_ssh_private_key_file: "{{ lookup ('env', 'SSH_KEYDIR') }}/tlewis_labs_kp.pem"
-
     rpm_url: "https://pkg.jenkins.io/redhat-stable/jenkins-2.7.4-1.1.noarch.rpm"
+
 
   tasks:
 
-    - name: "install jenkins from remote rpm: {{ rpm_url }}"
-      yum:
-        name:  "{{ rpm_url }}"         
-        state: present
-      become: true
-      become_user: root
+      - name: "remove jenkins rpm"
+        yum:
+          name: jenkins
+          state: absent
+        become: true
+        become_user: root
 
-    - name: "create jenkins user"
-      user: 
-        name: jenkins
-        comment: "jenkins service user"
+      - name: "install jenkins from remote rpm: {{ rpm_url }}"
+        yum:
+          name:  "{{ rpm_url }}"         
+          state: installed
+        become: true
+        become_user: root
+        tags: destroy
 
-      become: true
-      become_user: root
-      
-    - name: "start jenkins service"
-      service:
-        name: jenkins
-        state: started     
-      become: true
-      become_user: root
- 
+      - name: "create jenkins user"
+        user: 
+          name: jenkins
+          comment: "jenkins service user"
+
+        become: true
+        become_user: root
+
+
+      #need to pass this to the java command in the rpm
+      #-Djenkins.install.runSetupWizard=false 
+
+      - name: "place custom config file"
+        copy: 
+          src: etc/sysconfig/jenkins
+          dest: /etc/sysconfig/jenkins
+          owner: root
+          mode: 0600
+        become: true
+        become_user: root
+
+      #- name: "add admin user"
+        #kcopy      
+      - name: "start jenkins service"
+        service:
+          name: jenkins
+          state: started     
+        become: true
+        become_user: root
+
+
