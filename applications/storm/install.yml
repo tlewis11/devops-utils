@@ -1,0 +1,30 @@
+# download this script
+# https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+# place it on the path
+# make it executable
+
+
+#git clone https://github.com/nathanmarz/storm-deploy.git
+#cd into storm-deploy
+#lein deps
+
+
+
+
+#create ~/.pallet/config.clj 
+
+#(defpallet
+#  :services
+#  {
+#   :default {
+#             :blobstore-provider "aws-s3"
+#             :provider "aws-ec2"
+#             :environment {:user {:username "storm"  ; this must be "storm"
+#                                  :private-key-path "$YOUR_PRIVATE_KEY_PATH$"
+#                                  :public-key-path "$YOUR_PUBLIC_KEY_PATH$"}
+#                           :aws-user-id "$YOUR_USER_ID$"}
+#             :identity "$YOUR_AWS_ACCESS_KEY$"
+#             :credential "$YOUR_AWS_ACCESS_KEY_SECRET$"
+#             :jclouds.regions "$YOUR_AWS_REGION$"
+#             }
+#    })
