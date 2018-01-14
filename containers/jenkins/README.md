@@ -9,7 +9,7 @@
 
 # Use Jenkins
 1. browse to http://localhost:8080
-2. log in to Jenkins with the default credentials:
+2. log in to Jenkins with the default credentials: 
 	Usename: admin
 	Password: changeme
 
